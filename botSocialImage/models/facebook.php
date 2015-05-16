@@ -14,38 +14,61 @@ class Facebook
 	{
 		date_default_timezone_set("Asia/Bangkok");
 		$this->config = parse_ini_file('\config\config.ini',true);
-
 	}
 
-	public function getFeeds($page_id = "TrueMoveH")
+	private function setAppSession()
 	{
-		FacebookSession::setDefaultApplication($this->config['app']['app_id'], $this->config['app']['app_secret']);
-		$session = FacebookSession::newAppSession();
-		$query = "posts?fields=id,message,created_time,updated_time,attachments{media},link";
-		$limit = "&limit=".$this->config['app']['limit'];
-		$request = new FacebookRequest($session, 'GET', '/'.$page_id.'/'.$query.$limit);
-		do 
+		$app_id = $this->config['app']['app_id'];
+		$app_secret = $this->config['app']['app_secret'];
+		$session = null;
+
+		if ($app_id != null && $app_secret != null) 
 		{
-	        $response = $request->execute();
-	        $object = $response->getGraphObject();
-	        if ($object->getProperty('data') !== null) 
-	        {
-	        	$data = $object->getProperty('data')->asArray();
-		       	foreach ($data as $key => $value) 
-		       	{
-					if (isset($value->message)) 
-					{
-						echo $key." ".$value->message."<br>";
-						if (isset($value->attachments)) 
-						{
-							echo "<img src=".$value->attachments->data[0]->media->image->src."><br>";
+			FacebookSession::setDefaultApplication($app_id, $app_secret);
+			$session = FacebookSession::newAppSession();
+		}
+		
+		return $session;
+	}
+
+	public function getFeedsFromPage($page_id)
+	{
+		if ($page_id != null)
+		{
+			$session = $this->setAppSession();
+			if (!empty($session)) 
+			{
+				$query = "posts?fields=id,message,created_time,updated_time,attachments{media},link";
+				$limit = "&limit=".$this->config['app']['limit'];
+				$request = new FacebookRequest($session, 'GET', '/'.$page_id.'/'.$query.$limit);
+				do 
+				{
+			        $response = $request->execute();
+			        $object = $response->getGraphObject();
+			        if ($object->getProperty('data') !== null) 
+			        {
+			        	$data = $object->getProperty('data')->asArray();
+				       	foreach ($data as $key => $value) 
+				       	{
+							if (isset($value->message)) 
+							{
+								echo $key." ".$value->message."<br>";
+								if (isset($value->attachments)) 
+								{
+									echo "<img src=".$value->attachments->data[0]->media->image->src."><br>";
+								}
+							}
 						}
-					}
-				}
-	        }
-	       
-    	} 
-    	while ($request = $response->getRequestForNextPage());
+			        }
+			       
+		    	} 
+		    	while ($request = $response->getRequestForNextPage());
+		    }
+	    }
+	    else
+	    {
+	    	echo "\nPage ID is Null";
+	    }
 
 	}
 }
