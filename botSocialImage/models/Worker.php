@@ -26,7 +26,13 @@ class Worker
 		foreach ($datas as $key => $account) {
 			if ($account->account_channel == 'facebook') 
 			{
-				$this->fb->getFeedsFromPage($account);
+				try 
+				{
+					$this->fb->getFeedsFromPage($account);
+				} 
+				catch (Exception $e) {
+					echo $e->message();
+				}
 			}
 			
 		}
