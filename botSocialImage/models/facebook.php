@@ -71,14 +71,18 @@ class Facebook
 				       		if (isset($post->attachments)) 
 				       		{
 				       			$this->db->insertAuthor($post);
-				       			$this->db->insertPost($post, $account);
+				       			$insert_post_result = $this->db->insertPost($post, $account);
 				       			
-				       			if ($account_created_time < $post_created_time) 
+				       			if ($insert_post_result == TRUE) 
 				       			{
-				       				$account_created_time = $post_created_time;
-				       				$date = date('Y-m-m H:i:s', $account_created_time);
-				       				$this->db->updateAccountDateTimeLastPost($account->account_id_user, $date);
+				       				if ($account_created_time < $post_created_time) 
+					       			{
+					       				$account_created_time = $post_created_time;
+					       				$date = date('Y-m-m H:i:s', $account_created_time);
+					       				$this->db->updateAccountDateTimeLastPost($account->account_id_user, $date);
+					       			}
 				       			}
+				       			
 				       		}
 				       		
 						}

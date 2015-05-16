@@ -73,6 +73,8 @@ class Database
 		{
 			echo "F";
 		}
+
+		return $result;
 	}
 
 	public function insertAuthor($post)
