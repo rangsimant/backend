@@ -13,7 +13,7 @@ class Queue
 		$this->config = parse_ini_file('\config\config.ini',true);
 	}
 
-	public function connectQueue()
+	public function connection()
 	{
 		$host = $this->config['queue']['host'];
 		$user = $this->config['queue']['user'];
@@ -31,7 +31,7 @@ class Queue
 		}
 
 		$q_name = $this->config['queue']['q_name'];
-		$connection = $this->connectQueue();
+		$connection = $this->connection();
 		$channel = $connection->channel();
 		$channel->queue_declare($q_name, false, true, false, false);
 
@@ -54,7 +54,7 @@ class Queue
 	public function receiveFromQueue()
 	{
 		$q_name = $this->config['queue']['q_name'];
-		$connection = $this->connectQueue();
+		$connection = $this->connection();
 		$channel = $connection->channel();
 
 		$channel->queue_declare($q_name, false, true, false, false);

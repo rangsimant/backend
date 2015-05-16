@@ -6,6 +6,7 @@ class Database
 	private $db;
 	function __construct()
 	{
+		date_default_timezone_set("Asia/Bangkok");
 		$this->config = parse_ini_file('\config\config.ini',true);
 
 		$this->connection($this->config['db_test']['host'], 
@@ -41,10 +42,59 @@ class Database
 	    }
 
 	    $account_id_user = implode(',', $account_id_user);
+
 	    $this->updateTimeStampGetAccount($account_id_user);
 
 		return $data;
 	}
+
+
+
+	public function insertPost($post, $account)
+	{
+		$sql = "INSERT IGNORE INTO post(author_id, post_social_id, post_text, post_created_time, post_channel, post_link, post_subject, post_url_image)
+		 		VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(1,$post->from->id);
+		$stmt->bindParam(2,$post->id);
+		$stmt->bindParam(3,isset($post->message)?$post->message:'');
+		$stmt->bindParam(4,$post->created_time);
+		$stmt->bindParam(5,$account->account_channel);
+		$stmt->bindParam(6,$post->link);
+		$stmt->bindParam(7,$account->account_subject);
+		$stmt->bindParam(8,$post->attachments->data[0]->media->image->src);
+
+		$result = $stmt->execute();
+		if ($result)
+		{
+			echo ".";
+		}
+		else
+		{
+			echo "F";
+		}
+	}
+
+	public function insertAuthor($post)
+	{
+		$sql = "INSERT IGNORE INTO author(author_id,author_displayname,author_type)
+				VALUES(?, ?, ?)";
+
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(1,$post->from->id);
+		$stmt->bindParam(2,$post->id);
+		$stmt->bindParam(3,$post->from->name);
+	}
+
+	public function updateAccountDateTimeLastPost($account_id_user, $created_time)
+	{
+		$sql = "UPDATE account SET account_last_datetime = '".$created_time."' WHERE account_id_user = '".$account_id_user."'";
+		$result = $this->db->exec($sql);
+		if ($result)
+			echo "+";
+		else
+			echo "-";
+	}	
 
 	private function updateTimeStampGetAccount($account_id_user)
 	{

@@ -3,7 +3,7 @@ title [Social Image] sendJob
 :loop
 
 php sendJob.php
-SLEEP 60
+SLEEP 300
 
 goto loop
 

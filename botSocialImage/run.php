@@ -7,15 +7,15 @@ $fb = new Facebook();
 $q = new Queue();
 $db = new Database();
 
-$page_id = "ceclip";
+$page_id = new stdClass();
+$page_id->account_id_user = "NissanThailand";
+$page_id->created_time = "2012-01-01 00:00:00";
+
 $data = new stdClass();
 $data->id = "1530700275";
 $data->name = "Rangsimant Hanwongsa";
-$data->created_at = "2015-05-15 00:00:00";
-$result = $db->getAccount();
-echo "<pre>";
-print_r($result);
-die();
+$data->account_last_datetime = "2015-05-15 00:00:00";
+// $result = $db->getAccount();
 // $q->sendToQueue($data);die();
-$q->receiveFromQueue();die();
+// $q->receiveFromQueue();die();
 $fb->getFeedsFromPage($page_id);
