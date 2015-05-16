@@ -23,7 +23,7 @@ class Worker
 	{
 		$datas = json_decode($msg);
 
-		foreach ($datas as $account) {
+		foreach ($datas as $key => $account) {
 			if ($account->account_channel == 'facebook') 
 			{
 				$this->fb->getFeedsFromPage($account);

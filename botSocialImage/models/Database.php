@@ -104,4 +104,13 @@ class Database
 		$sql = "UPDATE account SET account_timestamp = '".$now."' WHERE account_id_user IN (".$account_id_user.")";
 		$result = $this->db->exec($sql);
 	}
+
+	public function getAccountLastDatetime($account_id_user)
+	{
+		$sql = "SELECT account_last_datetime FROM account WHERE account_id_user = '".$account_id_user."'";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute();
+		$row = $stmt->fetch();
+		return $row;
+	}
 }

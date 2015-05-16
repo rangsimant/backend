@@ -64,6 +64,7 @@ class Facebook
 				       	foreach ($data as $key => $post) 
 				       	{
 				       		$post_created_time = strtotime($post->created_time);
+
 				       		if (strtotime($account->account_last_datetime) > $post_created_time) 
 				       		{
 				       			return;
