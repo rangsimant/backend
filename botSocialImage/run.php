@@ -8,14 +8,9 @@ $q = new Queue();
 $db = new Database();
 
 $page_id = new stdClass();
-$page_id->account_id_user = "NissanThailand";
-$page_id->created_time = "2012-01-01 00:00:00";
+$page_id->account_id_user = "334239899993973";
+$page_id->account_last_datetime = "2012-01-01 00:00:00";
+$page_id->account_channel = "facebook";
+$page_id->account_subject = "nissan";
 
-$data = new stdClass();
-$data->id = "1530700275";
-$data->name = "Rangsimant Hanwongsa";
-$data->account_last_datetime = "2015-05-15 00:00:00";
-// $result = $db->getAccount();
-// $q->sendToQueue($data);die();
-// $q->receiveFromQueue();die();
 $fb->getFeedsFromPage($page_id);
