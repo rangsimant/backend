@@ -35,11 +35,17 @@ class Queue
 		$channel = $connection->channel();
 		$channel->queue_declare($q_name, false, true, false, false);
 
-		if(empty($data)) $data = "Hello World!";
-		$msg = new AMQPMessage($data, array('delivery_mode' => 2)); # make message persistent 
+		if(!empty($data))
+		{
+			$msg = new AMQPMessage($data, array('delivery_mode' => 2)); # make message persistent 
 
-		$channel->basic_publish($msg, '', $q_name);
-		echo "[".date('Y-m-d H:i:s')."] [x] Sent Total = ".$count." \n";
+			$channel->basic_publish($msg, '', $q_name);
+			echo "[".date('Y-m-d H:i:s')."] [x] Sent Total = ".$count." Account. \n";
+		}
+		else
+		{
+			echo "[".date('Y-m-d H:i:s')."] [!] No Sent Total = ".$count." Account. \n";
+		}
 
 		$channel->close();
 		$connection->close();
