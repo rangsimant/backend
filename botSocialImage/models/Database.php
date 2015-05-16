@@ -86,6 +86,7 @@ class Database
 		$stmt->bindParam(1,$post->from->id);
 		$stmt->bindParam(2,$post->id);
 		$stmt->bindParam(3,$post->from->name);
+		$result = $stmt->execute();
 	}
 
 	public function updateAccountDateTimeLastPost($account_id_user, $created_time)
