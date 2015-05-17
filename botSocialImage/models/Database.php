@@ -8,7 +8,6 @@ class Database
 	{
 		date_default_timezone_set("Asia/Bangkok");
 		$this->config = parse_ini_file('\config\config.ini',true);
-
 		$this->connection($this->config['db_test']['host'], 
 						$this->config['db_test']['user'], 
 						$this->config['db_test']['pass'], 
@@ -53,13 +52,15 @@ class Database
 	public function insertPost($post, $account)
 	{
 		$link = "https://www.facebook.com/".$post->id;
+		$hour = (7*60*60); // 7 hours
+		$created_time = date('Y-m-d H:i:s',strtotime($post->created_time)+'7 hours');
 		$sql = "INSERT IGNORE INTO post(author_id, post_social_id, post_text, post_created_time, post_channel, post_link, post_subject, post_url_image)
 		 		VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindParam(1,$post->from->id);
 		$stmt->bindParam(2,$post->id);
 		$stmt->bindParam(3,isset($post->message)?$post->message:'');
-		$stmt->bindParam(4,$post->created_time);
+		$stmt->bindParam(4,$created_time);
 		$stmt->bindParam(5,$account->account_channel);
 		$stmt->bindParam(6,$link);
 		$stmt->bindParam(7,$account->account_subject);
