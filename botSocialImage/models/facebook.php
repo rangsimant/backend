@@ -46,9 +46,6 @@ class Facebook
 				$query = "posts?fields=id,message,from,created_time,updated_time,attachments{media},link";
 				$limit = "&limit=".$this->config['app']['limit'];
 
-				// $post_since = strtotime($account->account_last_datetime);
-				// $post_until = strtotime('+2 month', $post_since);
-				// echo $account->account_id_user.'/'.$query.$limit.'&until='.$post_until.'&since='.$post_since;die();
 				$request = new FacebookRequest($session, 'GET', '/'.$account->account_id_user.'/'.$query.$limit);
 				echo "\n[".$account->account_id_user."] : ";
 				do 
@@ -72,11 +69,10 @@ class Facebook
 				       		if (isset($post->attachments)) 
 				       		{
 				       			$this->db->insertAuthor($post);
-				       			
-				       			
+			       				$insert_post_result = $this->db->insertPost($post, $account);
+			       				
 				       			if ($account_created_time < $post_created_time) 
 				       			{
-				       				$insert_post_result = $this->db->insertPost($post, $account);
 				       				if ($insert_post_result == TRUE) 
 					       			{
 					       				$account_created_time = $post_created_time;

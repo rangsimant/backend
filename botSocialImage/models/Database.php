@@ -52,6 +52,7 @@ class Database
 
 	public function insertPost($post, $account)
 	{
+		$link = "https://www.facebook.com/".$post->id;
 		$sql = "INSERT IGNORE INTO post(author_id, post_social_id, post_text, post_created_time, post_channel, post_link, post_subject, post_url_image)
 		 		VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = $this->db->prepare($sql);
@@ -60,7 +61,7 @@ class Database
 		$stmt->bindParam(3,isset($post->message)?$post->message:'');
 		$stmt->bindParam(4,$post->created_time);
 		$stmt->bindParam(5,$account->account_channel);
-		$stmt->bindParam(6,$post->link);
+		$stmt->bindParam(6,$link);
 		$stmt->bindParam(7,$account->account_subject);
 		$stmt->bindParam(8,$post->attachments->data[0]->media->image->src);
 
