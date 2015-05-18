@@ -52,7 +52,7 @@ class Database
 	public function insertPost($post, $account)
 	{
 		$link = "https://www.facebook.com/".$post->id;
-		$hour = (7*60*60); // 7 hours
+
 		$created_time = date('Y-m-d H:i:s',strtotime($post->created_time)+'7 hours');
 		$sql = "INSERT IGNORE INTO post(author_id, post_social_id, post_text, post_created_time, post_channel, post_link, post_subject, post_url_image)
 		 		VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
