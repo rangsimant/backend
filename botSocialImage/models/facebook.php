@@ -68,7 +68,7 @@ class Facebook
 				       		}
 				       		if (isset($post->attachments)) 
 				       		{
-				       			$this->db->insertAuthor($post);
+				       			$this->db->insertAuthor($post, $type = 'facebook');
 			       				$insert_post_result = $this->db->insertPost($post, $account);
 			       				
 				       			if ($account_created_time < $post_created_time) 

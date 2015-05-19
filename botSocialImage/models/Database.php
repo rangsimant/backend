@@ -79,7 +79,7 @@ class Database
 		return $result;
 	}
 
-	public function insertAuthor($post)
+	public function insertAuthor($post, $type)
 	{
 		$sql = "INSERT IGNORE INTO author(author_id,author_displayname,author_type)
 				VALUES(?, ?, ?)";
@@ -87,7 +87,7 @@ class Database
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindParam(1,$post->from->id);
 		$stmt->bindParam(2,$post->id);
-		$stmt->bindParam(3,$post->from->name);
+		$stmt->bindParam(3,$type);
 		$result = $stmt->execute();
 	}
 
