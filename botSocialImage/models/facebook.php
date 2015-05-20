@@ -57,7 +57,7 @@ class Facebook
 			        {
 			        	echo ">";
 			        	$data = $data->asArray();
-			        	$post = array();
+			        	$obj_post = array();
 				       	foreach ($data as $key => $post) 
 				       	{
 				       		$post_created_time = strtotime($post->created_time);
@@ -68,8 +68,18 @@ class Facebook
 				       		}
 				       		if (isset($post->attachments)) 
 				       		{
-				       			$this->db->insertAuthor($post, $type = 'facebook');
-			       				$insert_post_result = $this->db->insertPost($post, $account);
+				       			$created_time = date('Y-m-d H:i:s',strtotime($post->created_time)+'7 hours');
+
+				       			$obj_post[$key]['id'] =  $post->id;
+								$obj_post[$key]['link'] =  "https://www.facebook.com/".$post->id;
+								$obj_post[$key]['message'] =  isset($post->message)?$post->message:'';
+								$obj_post[$key]['url_image'] =  $post->attachments->data[0]->media->image->src;
+								$obj_post[$key]['created_time'] =  $created_time;
+								$obj_post[$key]['from_id'] = $post->from->id;
+								$obj_post[$key]['from_name'] =  $post->from->name;
+
+				       			$this->db->insertAuthor($obj_post[$key], $type = 'facebook');
+			       				$insert_post_result = $this->db->insertPost($obj_post[$key], $account);
 			       				
 				       			if ($account_created_time < $post_created_time) 
 				       			{

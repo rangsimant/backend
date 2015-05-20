@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'MetzWeb\\Instagram\\' => array($vendorDir . '/cosenary/instagram/src'),
 );
