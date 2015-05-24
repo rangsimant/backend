@@ -8,16 +8,24 @@ class Database
 	{
 		date_default_timezone_set("Asia/Bangkok");
 		$this->config = parse_ini_file('\config\config.ini',true);
-		$this->connection($this->config['db_test']['host'], 
-						$this->config['db_test']['user'], 
-						$this->config['db_test']['pass'], 
-						$this->config['db_test']['db_name']
+		$this->connection($this->config['db']['host'], 
+						$this->config['db']['user'], 
+						$this->config['db']['pass'], 
+						$this->config['db']['db_name']
 					);
 	}
 
 	public function connection($host, $user, $pass, $db_name)
 	{
-		$this->db = new PDO('mysql:host='.$host.';dbname='.$db_name, $user, $pass);
+		try
+		{
+			$this->db = new PDO('mysql:host='.$host.';dbname='.$db_name, $user, $pass);
+		}
+		catch (Exception $e)
+		{
+			echo "Connection Fail.\n";
+			exit();
+		}
 	}
 
 	public function getAccount($last_datetime = null, $limit = 10)

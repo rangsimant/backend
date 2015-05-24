@@ -6,11 +6,15 @@ require_once(__DIR__.'../models/Worker.php');
 $q = new Queue();
 $config = parse_ini_file('\config\config.ini',true);
 
+echo "[Database] : ".$config['db']['host']."\n";
+echo "[Queue] : ".$config['queue']['host']."\n";
+
 $q_name = $config['queue']['q_name'];
 $connection = $q->connection();
 $channel = $connection->channel();
 
 $channel->queue_declare($q_name, false, true, false, false);
+
 
 $callback = function($msg) {
 
