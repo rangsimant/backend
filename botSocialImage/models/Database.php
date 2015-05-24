@@ -19,7 +19,7 @@ class Database
 	{
 		try
 		{
-			$this->db = new PDO('mysql:host='.$host.';dbname='.$db_name, $user, $pass);
+			$this->db = new PDO('mysql:host='.$host.';dbname='.$db_name.';charset=UTF8', $user, $pass);
 		}
 		catch (Exception $e)
 		{
@@ -133,4 +133,5 @@ class Database
 		$row = $stmt->fetch();
 		return $row;
 	}
+
 }
