@@ -1,8 +1,8 @@
 @ECHO OFF
-title [Social Image] sendJob
+title [POSTcenter] sendJob
 :loop
 
-php sendJob.php
+php sendJob_pc_getpost.php
 SLEEP 1
 
 goto loop
