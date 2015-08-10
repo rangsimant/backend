@@ -32,7 +32,7 @@ class Database
 	{
 		(empty($last_datetime))? $last_datetime = date("Y-m-d H:i:s"):$last_datetime;
 
-		$sql = "SELECT account_id_user, account_channel, account_last_datetime, account_subject
+		$sql = "SELECT account_id_user, account_channel, account_last_datetime, account_subject, account_specific_token
 		FROM account 
 		WHERE account_available = 'open' AND account_last_datetime < '".$last_datetime."'
 		ORDER BY account_timestamp ASC
@@ -45,6 +45,7 @@ class Database
 	        $data[$key]['account_channel'] = $row['account_channel'];
 	        $data[$key]['account_last_datetime'] = $row['account_last_datetime'];
 	        $data[$key]['account_subject'] = $row['account_subject'];
+	        $data[$key]['account_specific_token'] = $row['account_specific_token'];
 	        $account_id_user[] = $row['account_id_user'];
 	    }
 

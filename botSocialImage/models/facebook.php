@@ -40,6 +40,15 @@ class Facebook
 		if ($account != null && isset($account->account_id_user))
 		{
 			$session = $this->setAppSession();
+
+			if ($account->account_specific_token == 'yes') 
+			{
+				$app_id = $this->config['app']['sub_app_id'];
+				$app_secret = $this->config['app']['sub_app_secret'];
+				FacebookSession::setDefaultApplication($app_id, $app_secret);
+				$session = new FacebookSession($this->config['app']['sub_access_token']);
+			}
+
 			if (!empty($session)) 
 			{
 				$account_created_time = strtotime($account->account_last_datetime);
