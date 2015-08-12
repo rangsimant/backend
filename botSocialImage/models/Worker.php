@@ -1,8 +1,8 @@
 <?php
-require_once(__DIR__.'\Facebook.php');
-require_once(__DIR__.'\Instagram.php');
-require_once(__DIR__.'\Queue.php');
-require_once(__DIR__.'\Database.php');
+require_once(__DIR__.'/Facebook.php');
+require_once(__DIR__.'/Instagram.php');
+require_once(__DIR__.'/Queue.php');
+require_once(__DIR__.'/Database.php');
 
 
 class Worker
@@ -19,7 +19,7 @@ class Worker
 		$this->fb = new Facebook();
 		$this->q = new Queue();
 		$this->db = new Database();
-		$this->config = parse_ini_file('\config\config.ini',true);
+		$this->config = parse_ini_file(__DIR__.'/../config/config.ini',true);
 	}
 
 	public function processMessages($msg)

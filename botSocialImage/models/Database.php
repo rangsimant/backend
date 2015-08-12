@@ -7,7 +7,7 @@ class Database
 	function __construct()
 	{
 		date_default_timezone_set("Asia/Bangkok");
-		$this->config = parse_ini_file('\config\config.ini',true);
+		$this->config = parse_ini_file(__DIR__.'/../config/config.ini',true);
 		$this->connection($this->config['db']['host'], 
 						$this->config['db']['user'], 
 						$this->config['db']['pass'], 

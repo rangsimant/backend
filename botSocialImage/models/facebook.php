@@ -1,8 +1,8 @@
 <?php
 ini_set('max_execution_time', 0); // limit seconds time for load
-define('FACEBOOK', '..\libs\facebook_SDK\src\Facebook');
-require(__DIR__.'\..\libs\facebook_SDK\autoload.php');
-require_once(__DIR__.'\Database.php');
+define('FACEBOOK', '../libs/facebook_SDK/src/Facebook');
+require(__DIR__.'/../libs/facebook_SDK/autoload.php');
+require_once(__DIR__.'/Database.php');
 
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
@@ -16,7 +16,7 @@ class Facebook
 	{
 		date_default_timezone_set("Asia/Bangkok");
 		$this->db = new Database();
-		$this->config = parse_ini_file('\config\config.ini',true);
+		$this->config = parse_ini_file(__DIR__.'/../config/config.ini',true);
 
 	}
 

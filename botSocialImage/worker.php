@@ -1,10 +1,10 @@
 <?php
 
-require_once(__DIR__.'../models/Queue.php');
-require_once(__DIR__.'../models/Worker.php');
+require_once(__DIR__.'/models/Queue.php');
+require_once(__DIR__.'/models/Worker.php');
 
 $q = new Queue();
-$config = parse_ini_file('\config\config.ini',true);
+$config = parse_ini_file(__DIR__.'/config/config.ini',true);
 
 echo "[Database] : ".$config['db']['host']."\n";
 echo "[Queue] : ".$config['queue']['host']."\n";
