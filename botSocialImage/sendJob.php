@@ -8,6 +8,7 @@ $config = parse_ini_file('\config\config.ini',true);
 
 
 $account = $db->getAccount($config['get_account']['since'], $config['get_account']['limit']);
-$q->sendToQueue($account);
+$q_name = $config['queue']['q_name'];
+$q->sendToQueue($account, $q_name);
 
 
