@@ -22,7 +22,7 @@ class Queue
 		return $connection = new AMQPConnection($host, 5672, $user, $pass);
 	}
 
-	public function sendToQueue($data=null)
+	public function sendToQueue($data=null,$q_name)
 	{
 		$count = count($data);
 		if (is_array($data) && !empty($data)) 
@@ -30,7 +30,6 @@ class Queue
 			$data = json_encode($data);
 		}
 
-		$q_name = $this->config['queue']['q_name'];
 		$connection = $this->connection();
 		$channel = $connection->channel();
 		$channel->queue_declare($q_name, false, true, false, false);
