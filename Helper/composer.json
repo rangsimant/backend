@@ -1,0 +1,33 @@
+{
+  "name": "christianbud.de/part",
+  "description": "A way better CMS",
+  "require": {
+      "facebook/php-sdk-v4" : "4.0.*",
+      "videlalvaro/php-amqplib": "2.5.*",
+      "lichtner/fluentpdo": "dev-master",
+      "monolog/monolog" : "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.0.*",
+    "phpunit/dbunit": "1.3.*",
+    "codeclimate/php-test-reporter": "dev-master"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christian Budde Christensen",
+      "email": "christi@nbud.de"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "ChristianBudde\\Part\\": "lib"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ChristianBudde\\Part\\test\\": "test/lib"
+    }
+  }
+}
