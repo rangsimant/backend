@@ -103,8 +103,9 @@ class FacebookHelper
 			foreach ($object as $status) 
 			{
 				$post = $status->asArray();
-				$created_time = $post['created_time']->format('Y-m-d H:i:s');
-				$created_time = date('Y-m-d H:i:s',strtotime($created_time)+'7 hours');
+				$created_time = $post['created_time'];
+				$created_time->setTimezone(new DateTimeZone('Asia/Bangkok'));
+				$created_time = $created_time->format('Y-m-d H:i:s');
 				$created_time = strtotime($created_time);
 				if ($created_time > $lasted_fetch) 
 				{

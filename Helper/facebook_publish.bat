@@ -3,7 +3,7 @@ title [POSTCenter] facebook token
 :loop
 
 php facebook_publish.php
-SLEEP 10
+SLEEP 3
 
 goto loop
 
