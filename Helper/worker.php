@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__."/model/Worker.php");
+require_once(__DIR__."/model/FacebookWorker.php");
 
-$worker = new Worker();
+$fb_worker = new FacebookWorker();
 
-$worker->run('getFacebookPost');
+$fb_worker->run('getFacebookPost');
