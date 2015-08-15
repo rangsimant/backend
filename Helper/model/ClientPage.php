@@ -16,6 +16,7 @@ class ClientPage extends Database
 	{
 		$query = $this->db->from('client_page')
 						->leftJoin('facebook_page ON facebook_page.facebook_id = client_page.facebook_id')
+						->orderBy('facebook_page.lasted_fetch ASC')
 						->select([ 
 								'client_page.cp_access_token',
 								'facebook_page.facebook_page_id',

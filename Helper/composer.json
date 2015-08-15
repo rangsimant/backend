@@ -2,7 +2,7 @@
   "name": "christianbud.de/part",
   "description": "A way better CMS",
   "require": {
-      "facebook/php-sdk-v4" : "4.0.*",
+      "facebook/php-sdk-v4" : "~5.0",
       "videlalvaro/php-amqplib": "2.5.*",
       "lichtner/fluentpdo": "dev-master",
       "monolog/monolog" : "*"
