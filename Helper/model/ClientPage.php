@@ -19,15 +19,18 @@ class ClientPage extends Database
 						->orderBy('facebook_page.lasted_fetch ASC')
 						->select([ 
 								'client_page.cp_access_token',
+								'facebook_page.facebook_id',
 								'facebook_page.facebook_page_id',
 								'facebook_page.lasted_fetch'
 								]);
 		$data = array();
 		foreach ($query as $row) 
 		{
+		    $temp['facebook_id'] = $row['facebook_id'];
 		    $temp['cp_access_token'] = $row['cp_access_token'];
 		    $temp['facebook_page_id'] = $row['facebook_page_id'];
 		    $temp['lasted_fetch'] = $row['lasted_fetch'];
+		    $temp['channel'] = 'facebook';
 		    $data[] = $temp;
 		}
 

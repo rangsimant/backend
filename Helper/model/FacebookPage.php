@@ -21,4 +21,14 @@ class FacebookPage extends Database
 						->where('facebook_page_id', $facebook_page_id);
 		return $query->execute();
 	}
+
+	public function updateLastedFetch($facebook_page_id, $lasted_fetch)
+	{
+		$set = array('lasted_fetch' => $lasted_fetch);
+
+		$query = $this->db->update('facebook_page')
+						->set($set)
+						->where('facebook_id', $facebook_page_id);
+		return $query->execute();
+	}
 }

@@ -3,4 +3,4 @@ require_once(__DIR__."/model/FacebookWorker.php");
 
 $fb_worker = new FacebookWorker();
 
-$fb_worker->run('getFacebookPost');
+$fb_worker->run('getPost');
