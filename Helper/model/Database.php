@@ -18,7 +18,6 @@ class Database
 							charset=UTF8', 
 							$db_config['user'], 
 							$db_config['pass']);
-			echo "[DATABASE SERVER] : ".$db_config['host']."|".$db_config['db_name']."\n";
 			$this->fpdo = new FluentPDO($pdo);
 			return $this->fpdo;
 			
