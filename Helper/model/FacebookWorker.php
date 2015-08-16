@@ -54,12 +54,12 @@ class FacebookWorker
 				break;
 			
 			case 'comment':
-				$comments = $fb_helper->getcomment($data);
+				$comments = $fb_helper->getCommentOrReply($data);
 				$this->post->insertNewPostCommentReply($comments, $data);				
 				break;
 				
 			case 'reply':
-				$reply = $fb_helper->getcomment($data);
+				$reply = $fb_helper->getCommentOrReply($data);
 				$this->post->insertNewPostCommentReply($reply, $data);				
 				break;
 		}

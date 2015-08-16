@@ -46,7 +46,7 @@ class FacebookHelper
 		return $posts;
 	}
 	
-	public function getComment($data)
+	public function getCommentOrReply($data)
 	{
 		$post_id = $data['post_social_id'];
 		try {
