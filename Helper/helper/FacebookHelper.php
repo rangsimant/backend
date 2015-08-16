@@ -45,6 +45,28 @@ class FacebookHelper
 		$posts = $this->getPostsAndNextPage($feedEdge, $lasted_fetch);
 		return $posts;
 	}
+	
+	public function getComment($data)
+	{
+		$post_id = $data['post_social_id'];
+		try {
+		  // Requires the "read_stream" permission
+		  $response = $this->fb->get("/".$post_id.$this->fb_config['facebook']['comment_field']);
+		} catch(Facebook\Exceptions\FacebookResponseException $e) {
+		  // When Graph returns an error
+		  echo 'Graph returned an error: ' . $e->getMessage();
+		  exit;
+		} catch(Facebook\Exceptions\FacebookSDKException $e) {
+		  // When validation fails or other local issues
+		  echo 'Facebook SDK returned an error: ' . $e->getMessage();
+		  exit;
+		}
+
+		// Page 1
+		$feedEdge = $response->getGraphEdge();
+		$posts = $this->getPostsAndNextPage($feedEdge, $lasted_fetch = "0000-00-00 00:00:00");
+		return $posts;
+	}
 
 
 	public function request($method = "GET", $field = '/me', $limit = 25)

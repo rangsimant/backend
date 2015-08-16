@@ -26,7 +26,6 @@ class FacebookWorker
 
 	public function getPostAndComment(AMQPMessage $msg)
 	{
-		$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 		$data = json_decode($msg->body, true);
 		switch ($data['channel']) 
 		{
@@ -41,6 +40,7 @@ class FacebookWorker
 				break;
 			
 		}
+		$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);		
 	}
 	public function fromFacebook($data)
 	{
@@ -50,11 +50,17 @@ class FacebookWorker
 		{
 			case 'post':
 				$posts = $fb_helper->getPosts($data['lasted_fetch']);	
-				$this->post->insertNewPost($posts, $data);
+				$this->post->insertNewPostCommentReply($posts, $data);
 				break;
 			
 			case 'comment':
-				# code...
+				$comments = $fb_helper->getcomment($data);
+				$this->post->insertNewPostCommentReply($comments, $data);				
+				break;
+				
+			case 'reply':
+				$reply = $fb_helper->getcomment($data);
+				$this->post->insertNewPostCommentReply($reply, $data);				
 				break;
 		}
 	}
