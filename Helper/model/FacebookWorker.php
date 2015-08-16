@@ -12,6 +12,7 @@ class FacebookWorker
 {
 	private $q;
 	private $post;
+	private $author;
 	public function __construct()
 	{
 		$this->q = new QueueHelper();
@@ -47,6 +48,5 @@ class FacebookWorker
 		$fb_helper = new FacebookHelper($access_token);
 		$posts = $fb_helper->getPosts($data['lasted_fetch']);
 		$this->post->insertNewPost($posts, $data);
-			
 	}
 }

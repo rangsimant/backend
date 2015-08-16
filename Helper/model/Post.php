@@ -1,6 +1,7 @@
 <?php 
 require_once(__DIR__."/Database.php");
 require_once(__DIR__."/FacebookPage.php");
+require_once(__DIR__."/Author.php");
 
 /**
 * 
@@ -14,12 +15,14 @@ class Post extends Database
 	{
 		$this->db = parent::__construct();
 		$this->facebook_page = new FacebookPage();
+		$this->author = new Author();
 	}
 
 	public function insertNewPost($posts = array(),$page)
 	{
 		echo "\n[".$page['facebook_page_id']."] : ";
 		$new_post = 0;
+		$new_author = 0;
 		if (!empty($posts)) 
 		{
 			foreach ($posts as $idx => $post) 
@@ -30,6 +33,7 @@ class Post extends Database
 				$value = array(
 					"post_body" => isset($post['message'])?$post['message']:'',
 					"Facebook_id" => $page['facebook_id'],
+					"Author_social_id" => $post['from']['id'],
 					"post_social_id" => $post['id'],
 					"post_link" => isset($post['link'])?$post['link']:'',
 					"post_created_at" => $created_time->format('Y-m-d H:i:s'),
@@ -41,8 +45,15 @@ class Post extends Database
 					"created_at" => date('Y-m-d H:i:s'),
 					"updated_at" => date('Y-m-d H:i:s'),
 					);
-				$result = $this->db->insertInto('post')->values($value)->execute();
-				if ($result) 
+
+				$author_result = $this->author->insertAuthor($post['from'], $channel = 'facebook');
+				$post_result = $this->db->insertInto('post')->values($value)->execute();
+				if ($author_result) 
+				{
+					$new_author++;
+				}
+				
+				if ($post_result) 
 				{
 					$new_post++;
 					if ($idx == 0) 
@@ -54,6 +65,6 @@ class Post extends Database
 				}
 			}
 		}
-		echo "\tNew ".$new_post." Post.";
+		echo "\tNew ".$new_post." Post, ".$new_author." Author";
 	}
 }
