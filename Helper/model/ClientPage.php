@@ -31,6 +31,7 @@ class ClientPage extends Database
 		    $temp['facebook_page_id'] = $row['facebook_page_id'];
 		    $temp['lasted_fetch'] = $row['lasted_fetch'];
 		    $temp['channel'] = 'facebook';
+		    $temp['type'] = 'post';
 		    $data[] = $temp;
 		}
 

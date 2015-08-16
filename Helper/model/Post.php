@@ -18,9 +18,9 @@ class Post extends Database
 		$this->author = new Author();
 	}
 
-	public function insertNewPost($posts = array(),$page)
+	public function insertNewPost($posts = array(),$data)
 	{
-		echo "\n[".$page['facebook_page_id']."] : ";
+		echo "\n[".$data['facebook_page_id']."] : ";
 		$new_post = 0;
 		$new_author = 0;
 		if (!empty($posts)) 
@@ -32,12 +32,12 @@ class Post extends Database
 				
 				$value = array(
 					"post_body" => isset($post['message'])?$post['message']:'',
-					"Facebook_id" => $page['facebook_id'],
+					"Facebook_id" => $data['facebook_id'],
 					"Author_social_id" => $post['from']['id'],
 					"post_social_id" => $post['id'],
 					"post_link" => isset($post['link'])?$post['link']:'',
 					"post_created_at" => $created_time->format('Y-m-d H:i:s'),
-					"post_type" => "post",
+					"post_type" => $data['type'],
 					"post_channel" => "facebook",
 					"post_image_url" => isset($post['attachments'][0]['media'])?$post['attachments'][0]['media']['image']['src']:'',
 					"post_likes_count" => count($post['likes']),
@@ -61,7 +61,7 @@ class Post extends Database
 						$lasted_fetch = $created_time->format('Y-m-d H:i:s');
 					}
 
-					$this->facebook_page->updateLastedFetch($page['facebook_id'], $lasted_fetch);
+					$this->facebook_page->updateLastedFetch($data['facebook_id'], $lasted_fetch);
 				}
 			}
 		}
