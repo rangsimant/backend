@@ -17,10 +17,12 @@ class Author extends Database
 	{
 		if (!empty($author)) 
 		{
+			$picture = isset($author['picture']['url'])?$author['picture']['url']:'';
 			$value = array(
 				"author_social_id" => $author['id'],
 				"author_name" => $author['name'],
 				"author_channel" => $channel,
+				"author_image_url" => $picture,
 				
 			);
 			
