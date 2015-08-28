@@ -19,14 +19,18 @@ class FacebookWorker
 		$this->post = new Post();
 	}
 
-	public function run($method)
+	public function run($method, $q_connection = null)
 	{
+		if (is_array($q_connection)) 
+		{
+			$this->q = new QueueHelper($q_connection);
+		}
 		$this->q->listen($this, $method);
 	}
 
 	public function getPostAndComment(AMQPMessage $msg)
 	{
-		$data = json_decode($msg->body, true);
+		$data = json_decode($msg->body, true); // decode to Array
 		switch ($data['channel']) 
 		{
 			case 'facebook':

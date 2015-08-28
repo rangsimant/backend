@@ -1,9 +1,9 @@
 @ECHO OFF
-title [POSTCenter] facebook token
+title [POSTCenter] Post Publisher
 :loop
 
-php facebook_publish.php
-timeout /t 1800 /nobreak > NUL
+php post_publish.php
+timeout /t 30 /nobreak
 
 goto loop
 
