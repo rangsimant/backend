@@ -1,9 +1,9 @@
 @ECHO OFF
-title [POSTCenter] Post Publisher
+title [POSTCenter] Comment Publisher
 :loop
 
-php post_publish.php
-timeout /t 5 /nobreak
+php comment_publish.php
+timeout /t 180 /nobreak
 
 goto loop
 
