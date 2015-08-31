@@ -15,32 +15,26 @@ class Database
 					);
 	}
 
-	public function connection($host, $user, $pass, $db_name, $retry = 0)
+	public function connection($host, $user, $pass, $db_name, $retry = 1)
 	{
-		if ($retry == 0) 
-		{
-			try
-			{
-				$this->db = new PDO('mysql:host='.$host.';dbname='.$db_name.';charset=UTF8', $user, $pass);
-			}
-			catch (Exception $e)
-			{
-				if ($retry > 0 && $retry <= 3) 
-				{
-					$retry++;
-					echo "Retry Connection.\n";
-					$this->connection($host, $user, $pass, $db_name, $retry);
-				}
-				else
-				{
-					echo "Connection Fail.\n";
-					exit();
-				}
-			}
-		}
-		else
-		{
 
+		try
+		{
+			$this->db = new PDO('mysql:host='.$host.';dbname='.$db_name.';charset=UTF8', $user, $pass);
+		}
+		catch (Exception $e)
+		{
+			if ($retry >= 1 && $retry <= 3) 
+			{
+				echo "Retry Connection: ".$retry."\n";
+				$retry++;
+				$this->connection($host, $user, $pass, $db_name, $retry);
+			}
+			else
+			{
+				echo "Connection Fail.\n";
+				exit();
+			}
 		}
 
 	}

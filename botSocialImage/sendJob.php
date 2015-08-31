@@ -12,7 +12,7 @@ while (true)
 	$account = $db->getAccount($config['get_account']['since'], $config['get_account']['limit']);
 	$q_name = $config['queue']['q_name'];
 	$q->sendToQueue($account, $q_name);
-	sleep($config['queue']['wait']);
+	usleep($config['queue']['wait']);
 }
 
 
