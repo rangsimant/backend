@@ -15,17 +15,34 @@ class Database
 					);
 	}
 
-	public function connection($host, $user, $pass, $db_name)
+	public function connection($host, $user, $pass, $db_name, $retry = 0)
 	{
-		try
+		if ($retry == 0) 
 		{
-			$this->db = new PDO('mysql:host='.$host.';dbname='.$db_name.';charset=UTF8', $user, $pass);
+			try
+			{
+				$this->db = new PDO('mysql:host='.$host.';dbname='.$db_name.';charset=UTF8', $user, $pass);
+			}
+			catch (Exception $e)
+			{
+				if ($retry > 0 && $retry <= 3) 
+				{
+					$retry++;
+					echo "Retry Connection.\n";
+					$this->connection($host, $user, $pass, $db_name, $retry);
+				}
+				else
+				{
+					echo "Connection Fail.\n";
+					exit();
+				}
+			}
 		}
-		catch (Exception $e)
+		else
 		{
-			echo "Connection Fail.\n";
-			exit();
+
 		}
+
 	}
 
 	public function getAccount($last_datetime = null, $limit = 10)
@@ -66,20 +83,22 @@ class Database
 		$post_message = $post['message'];
 		$account_channel = $account->account_channel;
 		$account_subject = $account->account_subject;
+		$post_added_date = date('Y-m-d H:i:s');
 		$created_time = $post['created_time'];
 		$url_image = $post['url_image'];
 
-		$sql = "INSERT IGNORE INTO post(author_id, post_social_id, post_text, post_created_time, post_channel, post_link, post_subject, post_url_image)
-		 		VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT IGNORE INTO post(author_id, post_social_id, post_text, post_created_time, post_added_date, post_channel, post_link, post_subject, post_url_image)
+		 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindParam(1,$post_from_id);
 		$stmt->bindParam(2,$post_id);
 		$stmt->bindParam(3,$post_message);
 		$stmt->bindParam(4,$created_time);
-		$stmt->bindParam(5,$account_channel);
-		$stmt->bindParam(6,$link);
-		$stmt->bindParam(7,$account_subject);
-		$stmt->bindParam(8,$url_image);
+		$stmt->bindParam(5,$post_added_date);
+		$stmt->bindParam(6,$account_channel);
+		$stmt->bindParam(7,$link);
+		$stmt->bindParam(8,$account_subject);
+		$stmt->bindParam(9,$url_image);
 
 		$result = $stmt->execute();
 		if ($result)
