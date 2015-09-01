@@ -1,12 +1,12 @@
 <?php
 ini_set('max_execution_time', 0); // limit seconds time for load
-define('FACEBOOK', '..\libs\facebook_SDK\src\Facebook');
-require(__DIR__.'\..\libs\facebook_SDK\autoload.php');
-require_once(__DIR__.'\Database.php');
+define('FACEBOOK', '../libs/facebook_SDK/src/Facebook');
+require(__DIR__.'/../libs/facebook_SDK/autoload.php');
+require_once(__DIR__.'/Database.php');
 
-use Facebook\FacebookSession;
-use Facebook\FacebookRequest;
-// use Facebook\FacebookRequestException;
+use Facebook/FacebookSession;
+use Facebook/FacebookRequest;
+// use Facebook/FacebookRequestException;
 
 class Facebook
 {
@@ -56,7 +56,7 @@ class Facebook
 				$limit = "&limit=".$this->config['app']['limit'];
 
 				$request = new FacebookRequest($session, 'GET', '/'.$account->account_id_user.'/'.$query.$limit);
-				echo "\n[".$account->account_id_user."] : ";
+				echo "/n[".$account->account_id_user."] : ";
 				do 
 				{
 			        $response = $request->execute();
@@ -115,7 +115,7 @@ class Facebook
 	    }
 	    else
 	    {
-	    	echo "\nPage ID is Null";
+	    	echo "/nPage ID is Null";
 	    }
 
 	}
