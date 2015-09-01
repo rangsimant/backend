@@ -1,7 +1,7 @@
 <?php
 
-require_once(__DIR__.'/../models/Queue.php');
-require_once(__DIR__.'/../models/Database.php');
+require_once(__DIR__.'/models/Queue.php');
+require_once(__DIR__.'/models/Database.php');
 $q = new Queue();
 $db = new Database();
 $config = parse_ini_file(__DIR__.'/config/config.ini',true);
