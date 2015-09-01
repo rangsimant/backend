@@ -15,7 +15,7 @@ class Instagrams
 	{
 		date_default_timezone_set("Asia/Bangkok");
 		$this->db = new Database();
-		$this->config = parse_ini_file('\config\config.ini',true);
+		$this->config = parse_ini_file(__DIR__.'/../config/config.ini',true);
 
 		$this->ig = new Instagram(array(
 		    'apiKey'      => $this->config['instagram']['apiKey'],

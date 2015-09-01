@@ -19,7 +19,7 @@ class Worker
 		$this->fb = new Facebook();
 		$this->q = new Queue();
 		$this->db = new Database();
-		$this->config = parse_ini_file('\config\config.ini',true);
+		$this->config = parse_ini_file(__DIR__.'/../config/config.ini',true);
 	}
 
 	public function processMessages($msg)
