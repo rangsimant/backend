@@ -1,5 +1,6 @@
 {
     "require": {
+    	"symfony/process": "~2.0",
         "videlalvaro/php-amqplib": "2.5.*",
         "cosenary/instagram": "~2.3"
     }
