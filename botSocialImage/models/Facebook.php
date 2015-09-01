@@ -4,9 +4,9 @@ define('FACEBOOK', '../libs/facebook_SDK/src/Facebook');
 require(__DIR__.'/../libs/facebook_SDK/autoload.php');
 require_once(__DIR__.'/Database.php');
 
-use Facebook/FacebookSession;
-use Facebook/FacebookRequest;
-// use Facebook/FacebookRequestException;
+use Facebook\FacebookSession;
+use Facebook\FacebookRequest;
+// use Facebook\FacebookRequestException;
 
 class Facebook
 {
