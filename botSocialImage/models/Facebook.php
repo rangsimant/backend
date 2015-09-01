@@ -56,7 +56,7 @@ class Facebook
 				$limit = "&limit=".$this->config['app']['limit'];
 
 				$request = new FacebookRequest($session, 'GET', '/'.$account->account_id_user.'/'.$query.$limit);
-				echo "/n[".$account->account_id_user."] : ";
+				echo "\n[".$account->account_id_user."] : ";
 				do 
 				{
 			        $response = $request->execute();
