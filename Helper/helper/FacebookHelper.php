@@ -54,6 +54,10 @@ class FacebookHelper
 		  $response = $this->fb->get("/".$post_id.$this->fb_config['facebook']['comment_field']);
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
 		  // When Graph returns an error
+			if ($e->getCode() == 100) 
+			{
+				return "\tThis post Deleted.\n";
+			}
 		  echo 'Graph returned an error: ' . $e->getMessage();
 		  exit;
 		} catch(Facebook\Exceptions\FacebookSDKException $e) {

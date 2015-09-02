@@ -68,7 +68,7 @@ class Post extends Database
 		echo "\n[".$id."] : ";
 		$new_post = 0;
 		$new_author = 0;
-		if (!empty($posts)) 
+		if (!empty($posts) && is_array($posts)) 
 		{
 			foreach ($posts as $idx => $post) 
 			{
