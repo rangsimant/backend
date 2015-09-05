@@ -51,6 +51,7 @@ class Database
 
 		$data = array();
 		$account_id_user = array();
+
 	    foreach ($this->db->query($sql) as $key => $row) {
 	        $data[$key]['account_id_user'] = $row['account_id_user'];
 	        $data[$key]['account_channel'] = $row['account_channel'];
@@ -59,7 +60,6 @@ class Database
 	        $data[$key]['account_specific_token'] = $row['account_specific_token'];
 	        $account_id_user[] = $row['account_id_user'];
 	    }
-
 	    $account_id_user = implode(',', $account_id_user);
 
 	    $this->updateTimeStampGetAccount($account_id_user);
@@ -111,15 +111,27 @@ class Database
 	{
 		$post_from_id = $post['from_id'];
 		$post_name = $post['from_name'];
+		$picture = 'graph.facebook.com/'.$post_from_id.'/picture?type=normal';
 
-		$sql = "INSERT IGNORE INTO author(author_id,author_displayname,author_type)
-				VALUES(?, ?, ?)";
+		$sql = "INSERT IGNORE INTO author(author_id, author_displayname, author_type, author_picture)
+				VALUES(?, ?, ?, ?)";
 
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindParam(1,$post_from_id);
 		$stmt->bindParam(2,$post_name);
 		$stmt->bindParam(3,$type);
+		$stmt->bindParam(4,$picture);
 		$result = $stmt->execute();
+	}
+
+	public function updateAuthor($post)
+	{
+		$post_from_id = $post['from_id'];
+		$post_name = $post['from_name'];
+
+		$sql = "UPDATE author SET author_displayname = '".$post_name."', author_picture = 'graph.facebook.com/".$post_from_id."/picture?type=normal'
+				WHERE author_id = '".$post_from_id."'";
+		$result = $this->db->exec($sql);
 	}
 
 	public function updateAccountDateTimeLastPost($account_id_user, $created_time)

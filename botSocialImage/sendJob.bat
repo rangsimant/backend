@@ -4,7 +4,7 @@ title [Social Image] sendJob
 php sendJob.php
 
 
-
+pause
 
 // time
 // 1 = 1 seconde.

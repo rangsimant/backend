@@ -88,7 +88,9 @@ class Facebook
 								$obj_post[$key]['from_name'] =  $post->from->name;
 
 				       			$this->db->insertAuthor($obj_post[$key], $type = 'facebook');
+				       			$this->db->updateAuthor($obj_post[$key]);
 			       				$insert_post_result = $this->db->insertPost($obj_post[$key], $account);
+
 			       				
 				       			if ($account_created_time < $post_created_time) 
 				       			{
